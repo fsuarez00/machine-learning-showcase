@@ -4,13 +4,13 @@ This will showcase detailed implementations of various algorithms in machine lea
 At first:
 ##Supervised Learning
 1. Linear Regression
-⋅⋅1. One Variable(Univariate)
-⋅⋅2. Multiple Features(Multivariate) 
-⋅⋅⋅⋅1. Feature Scaling
-⋅⋅⋅⋅2. Mean Normalization
+  1. One Variable(Univariate)
+  2. Multiple Features(Multivariate) 
+    1. Feature Scaling
+    2. Mean Normalization
 2. Logistic Regression(Classification)
-⋅⋅1. Single Class
-⋅⋅2. Multiclass
+  1. Single Class
+  2. Multiclass
 3. SVM(Support Vector Machines - Alternative to Logistic Regression)
 
 * Regularization
@@ -47,10 +47,10 @@ At first:
 
 ## Analysing ML algorithm
 1. Evaluating a Hypothesis
-⋅⋅* Model Selection
-⋅⋅* Training, Validation, Test sets
+  * Model Selection
+  * Training, Validation, Test sets
 2. Diagnosing Bias vs Variance
 3. Learning Curves
 4. Error Analysis
-⋅⋅* Precision/Recall
-⋅⋅* F1 Score
+  * Precision/Recall
+  * F1 Score
