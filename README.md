@@ -15,20 +15,20 @@ This will showcase detailed implementations of various algorithms in machine lea
 * Regularization
 
 ## Unsupervised Learning
-1. K-means
-2. PCA(Principal Component Analysis)
-3. Applying PCA
-4. Anomaly Detection
+* K-means
+* PCA(Principal Component Analysis)
+* Applying PCA
+* Anomaly Detection
 
 ## Artificial Neural Networks
-1. Feedforward(Forward Propagation)
-2. Backpropagation
+* Feedforward(Forward Propagation)
+* Backpropagation
 
 * Bias term 
 
 ## Recommender Systems
-1. Content-based Recommentdations
-2. Collaborative Filterin
+* Content-based Recommentdations
+* Collaborative Filterin
 
 ## Optimization
 ### Gradient Descent
