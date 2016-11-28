@@ -1,17 +1,16 @@
 # machine-learning-showcase
 This will showcase detailed implementations of various algorithms in machine learning.
 
-At first:
 ##Supervised Learning
-1. Linear Regression
-  1. One Variable(Univariate)
-  2. Multiple Features(Multivariate) 
-    1. Feature Scaling
-    2. Mean Normalization
-2. Logistic Regression(Classification)
-  1. Single Class
-  2. Multiclass
-3. SVM(Support Vector Machines - Alternative to Logistic Regression)
+* Linear Regression
+  * One Variable(Univariate)
+  * Multiple Features(Multivariate) 
+    * Feature Scaling
+    * Mean Normalization
+* Logistic Regression(Classification)
+  * Single Class
+  * Multiclass
+* SVM(Support Vector Machines - Alternative to Logistic Regression)
 
 * Regularization
 
@@ -34,8 +33,8 @@ At first:
 ## Optimization
 ### Gradient Descent
 * Normal Equation
-1. Batch Gradient Descent
-2. Stochastic Gradient Descent
+* Batch Gradient Descent
+* Stochastic Gradient Descent
 ### Advanced Optimization
 * Conjugate Gradient
 * BFGS(Broyden–Fletcher–Goldfarb–Shanno)
@@ -46,11 +45,11 @@ At first:
 ## MapReduce and Data Parallelism
 
 ## Analysing ML algorithm
-1. Evaluating a Hypothesis
+* Evaluating a Hypothesis
   * Model Selection
   * Training, Validation, Test sets
-2. Diagnosing Bias vs Variance
-3. Learning Curves
-4. Error Analysis
+* Diagnosing Bias vs Variance
+* Learning Curves
+* Error Analysis
   * Precision/Recall
   * F1 Score
