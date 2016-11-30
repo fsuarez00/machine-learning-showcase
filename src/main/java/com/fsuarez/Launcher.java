@@ -1,5 +1,6 @@
 package com.fsuarez;
 
+import com.fsuarez.showcase.ShowcaseRunner;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -20,6 +21,8 @@ public class Launcher {
         CommandLine cmd = parser.parse(options, args);
 
         String algorithm = cmd.getOptionValue("a");
+
+        ShowcaseRunner.run(algorithm);
     }
 
 }
