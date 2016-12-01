@@ -36,6 +36,7 @@ At first in Java then possibly other languages in the future.
 * Normal Equation
 * Batch Gradient Descent
 * Stochastic Gradient Descent
+
 ### Advanced Optimization
 * Conjugate Gradient
 * BFGS(Broyden–Fletcher–Goldfarb–Shanno)
@@ -45,7 +46,7 @@ At first in Java then possibly other languages in the future.
 
 ## MapReduce and Data Parallelism
 
-## Analyzing ML algorithm
+## Analyzing ML Algorithms
 * Evaluating a Hypothesis
   * Model Selection
   * Training, Validation, Test sets
