@@ -9,11 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import com.fsuarez.showcase.Showcase;
+import com.fsuarez.showcase.chart.ScatterChart;
+import com.fsuarez.showcase.gd.BatchGradientDescent;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  * @author fsuarez
@@ -26,6 +29,34 @@ public class LinearRegressionShowcase implements Showcase {
     public void run() {
         double[][] matrixData = readDataFile("lrdata1.txt");
         RealMatrix m = MatrixUtils.createRealMatrix(matrixData);
+
+        ScatterChart chart = new ScatterChart("Population vs Profit");
+        chart.createChart(m);
+        chart.pack();
+        RefineryUtilities.centerFrameOnScreen(chart);
+        chart.setVisible(true);
+
+        double[] ones = new  double[m.getRowDimension()];
+        Arrays.fill(ones, 1);
+        RealMatrix X = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension());
+        X.setColumn(0, ones);
+        X.setColumnMatrix(1, m.getSubMatrix(0, m.getRowDimension()-1, 0, 0));
+
+        RealVector y = m.getColumnVector(m.getColumnDimension()-1);
+
+        // initialize parameters to 0
+        double[] thetaArray = {0.0, 0.0};
+        RealMatrix theta = MatrixUtils.createColumnRealMatrix(thetaArray);
+
+        int iterations = 1500;
+        double alpha = 0.01;
+
+        BatchGradientDescent gd = new BatchGradientDescent(X, y, theta, iterations, alpha);
+        theta = gd.run();
+
+        RealMatrix rawX = m.getSubMatrix(0, m.getRowDimension()-1, 0, 0);
+        LinearRegression lr = new UnivariateLinearRegression();
+        chart.drawRegressionLine(rawX.getColumnVector(0), lr.predict(X, theta).getColumnVector(0));
     }
 
     private double[][] readDataFile(String fileName) {
