@@ -51,7 +51,7 @@ public class LinearRegressionShowcase implements Showcase {
         int iterations = 1500;
         double alpha = 0.01;
 
-        BatchGradientDescent gd = new BatchGradientDescent(X, y, theta, iterations, alpha);
+        BatchGradientDescent gd = new BatchGradientDescent(X, y, theta, iterations, alpha, new UnivariateLinearRegression());
         theta = gd.run();
 
         RealMatrix rawX = m.getSubMatrix(0, m.getRowDimension()-1, 0, 0);

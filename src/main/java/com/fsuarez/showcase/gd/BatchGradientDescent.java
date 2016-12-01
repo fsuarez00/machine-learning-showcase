@@ -1,5 +1,6 @@
 package com.fsuarez.showcase.gd;
 
+import com.fsuarez.showcase.Learner;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -15,12 +16,15 @@ public class BatchGradientDescent {
     private int iterations;     // number of iterations to run gradient descent
     private double alpha;       // learning rate
 
-    public BatchGradientDescent(RealMatrix X, RealVector y, RealMatrix theta, int iterations, double alpha) {
+    private Learner learner;    // learning algorithm
+
+    public BatchGradientDescent(RealMatrix X, RealVector y, RealMatrix theta, int iterations, double alpha, Learner learner) {
         this.X = X;
         this.y = y;
         this.theta = theta;
         this.iterations = iterations;
         this.alpha = alpha;
+        this.learner = learner;
     }
 
     public RealMatrix run() {
@@ -41,7 +45,7 @@ public class BatchGradientDescent {
         // number of training examples
         int m = y.getDimension();
 
-        RealMatrix h = X.multiply(theta);
+        RealMatrix h = learner.predict(X, theta);
 
         RealMatrix error = h.subtract(MatrixUtils.createColumnRealMatrix(y.toArray()));
 
