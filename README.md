@@ -45,7 +45,7 @@ At first in Java then possibly other languages in the future.
 
 ## MapReduce and Data Parallelism
 
-## Analysing ML algorithm
+## Analyzing ML algorithm
 * Evaluating a Hypothesis
   * Model Selection
   * Training, Validation, Test sets
