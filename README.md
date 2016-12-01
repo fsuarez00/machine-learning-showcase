@@ -1,5 +1,6 @@
 # machine-learning-showcase
-This will showcase detailed implementations of various algorithms in machine learning.
+This will showcase detailed implementations of various algorithms in machine learning including the linear algebra that is is involved.
+At first in Java then possibly other languages in the future.
 
 ##Supervised Learning
 * Linear Regression
