@@ -1,6 +1,7 @@
 package com.fsuarez.showcase.gd;
 
 import com.fsuarez.showcase.Learner;
+import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -32,7 +33,8 @@ public class BatchGradientDescent {
         for(int i = 0; i < iterations; i++)
             theta = gradientUpdate(theta);
 
-        System.out.println("Theta found by gradient descent: " + theta.getRow(0)[0] + ", " + theta.getRow(1)[0]);
+        System.out.println("Theta found by gradient descent:");
+        System.out.println(MatrixUtil.toString(theta));
 
         return theta;
     }

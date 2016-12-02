@@ -17,6 +17,7 @@ public class UnivariateLinearRegression implements LinearRegression {
      * @param theta parameters matrix
      * @return J
      */
+    @Override
     public double computeCost(RealMatrix X, RealVector y, RealMatrix theta) {
 
         // number of training examples
@@ -44,6 +45,7 @@ public class UnivariateLinearRegression implements LinearRegression {
      * @param theta
      * @return prediction
      */
+    @Override
     public RealMatrix predict(RealMatrix X, RealMatrix theta) {
         return X.multiply(theta);
     }
