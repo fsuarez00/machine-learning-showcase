@@ -2,6 +2,8 @@ package com.fsuarez.showcase;
 
 import com.fsuarez.showcase.gd.BatchGradientDescent;
 import com.fsuarez.showcase.gd.GradientDescent;
+import com.fsuarez.showcase.supervised.MultivariateLinearRegression;
+import com.fsuarez.showcase.supervised.MultivariateLinearRegressionShowcase;
 import com.fsuarez.showcase.supervised.UnivariateLinearRegression;
 import com.fsuarez.showcase.supervised.UnivariateLinearRegressionShowcase;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -27,6 +29,10 @@ public class ShowcaseRunner {
             case "linear-regression":
                 showcase = new UnivariateLinearRegressionShowcase();
                 learner = new UnivariateLinearRegression();
+                break;
+            case "multi-linear-regression":
+                showcase = new MultivariateLinearRegressionShowcase();
+                learner = new MultivariateLinearRegression();
         }
 
         Data data = showcase.run();
