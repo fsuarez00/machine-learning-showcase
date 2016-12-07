@@ -9,7 +9,7 @@ import org.apache.commons.math3.linear.RealVector;
 /**
  * @author fsuarez
  */
-public class BatchGradientDescent {
+public class BatchGradientDescent implements GradientDescent {
 
     private RealMatrix X;       // feature matrix
     private RealVector y;       // label vector

@@ -15,14 +15,20 @@ public class Launcher {
     public static void main(String... args) throws ParseException {
 
         Options options = new Options();
-        options.addOption("a", true, "Algorithm to run");
+        options.addOption("algo", true, "Algorithm to run");
+        options.addOption("g", true, "Gradient Descent Algorithm to run");
+        options.addOption("i", true, "Number of iterations");
+        options.addOption("a", true, "Value of alpha");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
-        String algorithm = cmd.getOptionValue("a");
+        String algorithm = cmd.getOptionValue("algo");
+        String gd = cmd.getOptionValue("g");
+        int iterations = Integer.parseInt(cmd.getOptionValue("i"));
+        double alpha = Double.parseDouble(cmd.getOptionValue("a"));
 
-        ShowcaseRunner.run(algorithm);
+        ShowcaseRunner.run(algorithm, gd, iterations, alpha);
     }
 
 }
