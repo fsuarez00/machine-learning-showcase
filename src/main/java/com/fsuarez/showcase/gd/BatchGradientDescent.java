@@ -1,5 +1,7 @@
 package com.fsuarez.showcase.gd;
 
+import java.util.HashMap;
+import java.util.Map;
 import com.fsuarez.showcase.Learner;
 import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.math3.linear.MatrixUtils;
@@ -28,15 +30,25 @@ public class BatchGradientDescent implements GradientDescent {
         this.learner = learner;
     }
 
-    public RealMatrix run() {
+    public Map<String, RealMatrix> run() {
+
+        // iteration compute cost
+        RealMatrix J = MatrixUtils.createRealMatrix(iterations, 1);//;
+
         RealMatrix theta = this.theta;
-        for(int i = 0; i < iterations; i++)
+        for(int i = 0; i < iterations; i++) {
             theta = gradientUpdate(theta);
+            J.setEntry(i, 0, learner.computeCost(X, y, theta));
+        }
 
         System.out.println("Theta found by gradient descent:");
         System.out.println(MatrixUtil.toString(theta));
 
-        return theta;
+        Map<String, RealMatrix> resultMap = new HashMap<>(2);
+        resultMap.put("theta", theta);
+        resultMap.put("jHist", J);
+
+        return resultMap;
     }
 
     /**

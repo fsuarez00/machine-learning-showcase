@@ -25,8 +25,14 @@ public class Launcher {
 
         String algorithm = cmd.getOptionValue("algo");
         String gd = cmd.getOptionValue("g");
-        int iterations = Integer.parseInt(cmd.getOptionValue("i"));
-        double alpha = Double.parseDouble(cmd.getOptionValue("a"));
+        String iterString = cmd.getOptionValue("i");
+        String alphaString = cmd.getOptionValue("a");
+        int iterations = 0;
+        if(iterString != null)
+            iterations = Integer.parseInt(cmd.getOptionValue("i"));
+        double alpha = 0.0;
+        if(alphaString != null)
+            alpha = Double.parseDouble(cmd.getOptionValue("a"));
 
         ShowcaseRunner.run(algorithm, gd, iterations, alpha);
     }

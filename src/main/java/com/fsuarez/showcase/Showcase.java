@@ -21,7 +21,7 @@ public interface Showcase {
      */
     Data run();
 
-    void addToChart(RealMatrix X, RealMatrix theta, Learner learner);
+    void addToChart(RealMatrix X, RealMatrix theta, RealMatrix jHist, Learner learner);
 
     default double[][] readDataFile(String fileName) {
 

@@ -9,5 +9,4 @@ import org.apache.commons.math3.linear.RealVector;
  */
 public interface LinearRegression extends Learner {
 
-    double computeCost(RealMatrix X, RealVector y, RealMatrix theta);
 }

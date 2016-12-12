@@ -4,11 +4,12 @@ import java.util.Arrays;
 import com.fsuarez.showcase.Data;
 import com.fsuarez.showcase.Learner;
 import com.fsuarez.showcase.Showcase;
-import com.fsuarez.showcase.util.MatrixUtil;
+import com.fsuarez.showcase.chart.LineChart;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  * @author fsuarez
@@ -30,7 +31,7 @@ public class MultivariateLinearRegressionShowcase implements Showcase {
         RealVector y = m.getColumnVector(m.getColumnDimension()-1);
 
         System.out.println("Feature Normalization...");
-        RealMatrix xNorm = featureNormmalize(X);
+        RealMatrix xNorm = featureNormalize(X);
 
         X = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension());
         double[] ones = new  double[m.getRowDimension()];
@@ -40,18 +41,23 @@ public class MultivariateLinearRegressionShowcase implements Showcase {
             X.setColumnMatrix(i+1, xNorm.getSubMatrix(0, xNorm.getRowDimension()-1, i, i));
 
         // initialize parameters to 0
-        double[] thetaArray = {0.0, 0.0};
+        double[] thetaArray = new double[X.getColumnDimension()];
+        Arrays.fill(thetaArray, 0.0);
         RealMatrix theta = MatrixUtils.createColumnRealMatrix(thetaArray);
 
         return new Data(X, y, theta);
     }
 
     @Override
-    public void addToChart(RealMatrix X, RealMatrix theta, Learner learner) {
-
+    public void addToChart(RealMatrix X, RealMatrix theta, RealMatrix jHist, Learner learner) {
+        LineChart chart = new LineChart("Learning Curve");
+        chart.createChart(jHist);
+        chart.pack();
+        RefineryUtilities.centerFrameOnScreen(chart);
+        chart.setVisible(true);
     }
 
-    private RealMatrix featureNormmalize(RealMatrix X) {
+    private RealMatrix featureNormalize(RealMatrix X) {
         // number of training examples
         int m = X.getRowDimension();
         // number of features

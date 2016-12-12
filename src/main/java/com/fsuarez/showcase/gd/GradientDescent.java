@@ -1,5 +1,6 @@
 package com.fsuarez.showcase.gd;
 
+import java.util.Map;
 import org.apache.commons.math3.linear.RealMatrix;
 
 /**
@@ -7,5 +8,5 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public interface GradientDescent {
 
-    RealMatrix run();
+    Map<String, RealMatrix> run();
 }

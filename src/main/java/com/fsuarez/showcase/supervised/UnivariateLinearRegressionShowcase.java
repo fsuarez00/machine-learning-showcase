@@ -47,7 +47,7 @@ public class UnivariateLinearRegressionShowcase implements Showcase {
     }
 
     @Override
-    public void addToChart(RealMatrix X, RealMatrix theta, Learner learner) {
+    public void addToChart(RealMatrix X, RealMatrix theta, RealMatrix jHist, Learner learner) {
         // removes column with 1's
         RealMatrix rawX = X.getSubMatrix(0, X.getRowDimension() - 1, 1, 1);
         chart.drawRegressionLine(rawX.getColumnVector(0), learner.predict(X, theta).getColumnVector(0));
