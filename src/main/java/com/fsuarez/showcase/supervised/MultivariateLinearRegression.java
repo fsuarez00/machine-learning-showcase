@@ -10,8 +10,8 @@ import org.apache.commons.math3.linear.RealVector;
 public class MultivariateLinearRegression implements LinearRegression {
 
     /**
-     * h_theta(x) = transpose(theta) * X = theta(0) + theta(1)*X(1)
      * J(theta) = 1/2m * sum(h_theta(x(i)) - y(i))^2
+     *
      * @param X feature matrix
      * @param y labels vector
      * @param theta parameters matrix
@@ -40,10 +40,11 @@ public class MultivariateLinearRegression implements LinearRegression {
     }
 
     /**
-     * h_theta(x) = transpose(theta) * X = theta(0) + theta(1)*X(1)
+     * h_theta(x) = theta^T * X = theta(0) + theta(1)*X(1)
+     *
      * @param X
      * @param theta
-     * @return prediction
+     * @return h
      */
     @Override
     public RealMatrix predict(RealMatrix X, RealMatrix theta) {

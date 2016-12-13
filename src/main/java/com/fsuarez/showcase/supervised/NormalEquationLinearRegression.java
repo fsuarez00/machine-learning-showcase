@@ -25,6 +25,13 @@ public class NormalEquationLinearRegression implements Learner {
         return 0;
     }
 
+    /**
+     * h_theta(x) = theta^T * X = theta(0) + theta(1)*X(1)
+     *
+     * @param X
+     * @param theta
+     * @return h
+     */
     @Override
     public RealMatrix predict(RealMatrix X, RealMatrix theta) {
         return X.multiply(theta);

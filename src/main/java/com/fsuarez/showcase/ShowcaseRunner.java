@@ -9,6 +9,8 @@ import com.fsuarez.showcase.supervised.NormalEquationLinearRegression;
 import com.fsuarez.showcase.supervised.NormalEquationLinearRegressionShowcase;
 import com.fsuarez.showcase.supervised.UnivariateLinearRegression;
 import com.fsuarez.showcase.supervised.UnivariateLinearRegressionShowcase;
+import com.fsuarez.showcase.supervised.UnregularizedLogisticRegression;
+import com.fsuarez.showcase.supervised.UnregularizedLogisticRegressionShowcase;
 import org.apache.commons.math3.linear.RealMatrix;
 
 /**
@@ -43,6 +45,10 @@ public class ShowcaseRunner {
                 Data data = showcase.run();
                 showcase.addToChart(data.getX(), data.getTheta(), null, learner);
                 return;
+            case "logistic-regression":
+                showcase = new UnregularizedLogisticRegressionShowcase();
+                learner = new UnregularizedLogisticRegression();
+                break;
             default:
                 return;
         }
