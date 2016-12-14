@@ -5,6 +5,7 @@ import com.fsuarez.showcase.Data;
 import com.fsuarez.showcase.Learner;
 import com.fsuarez.showcase.Showcase;
 import com.fsuarez.showcase.chart.ScatterChart;
+import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -31,17 +32,12 @@ public class UnivariateLinearRegressionShowcase implements Showcase {
         RefineryUtilities.centerFrameOnScreen(chart);
         chart.setVisible(true);
 
-        double[] ones = new  double[m.getRowDimension()];
-        Arrays.fill(ones, 1);
-        RealMatrix X = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension());
-        X.setColumn(0, ones);
-        X.setColumnMatrix(1, m.getSubMatrix(0, m.getRowDimension()-1, 0, 0));
+        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(m.getSubMatrix(0, m.getRowDimension()-1, 0, 0));
 
         RealVector y = m.getColumnVector(m.getColumnDimension()-1);
 
         // initialize parameters to 0
-        double[] thetaArray = {0.0, 0.0};
-        RealMatrix theta = MatrixUtils.createColumnRealMatrix(thetaArray);
+        RealMatrix theta = MatrixUtil.getThetaZeros(X);
 
         return new Data(X, y, theta);
     }

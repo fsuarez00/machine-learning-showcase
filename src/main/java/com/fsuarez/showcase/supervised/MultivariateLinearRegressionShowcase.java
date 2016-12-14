@@ -5,6 +5,7 @@ import com.fsuarez.showcase.Data;
 import com.fsuarez.showcase.Learner;
 import com.fsuarez.showcase.Showcase;
 import com.fsuarez.showcase.chart.LineChart;
+import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -33,17 +34,10 @@ public class MultivariateLinearRegressionShowcase implements Showcase {
         System.out.println("Feature Normalization...");
         RealMatrix xNorm = featureNormalize(X);
 
-        X = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension());
-        double[] ones = new  double[m.getRowDimension()];
-        Arrays.fill(ones, 1);
-        X.setColumn(0, ones);
-        for(int i = 0; i < m.getColumnDimension()-1; i++)
-            X.setColumnMatrix(i+1, xNorm.getSubMatrix(0, xNorm.getRowDimension()-1, i, i));
+        X = MatrixUtil.appendBiasTermColumnWithOnes(xNorm);
 
         // initialize parameters to 0
-        double[] thetaArray = new double[X.getColumnDimension()];
-        Arrays.fill(thetaArray, 0.0);
-        RealMatrix theta = MatrixUtils.createColumnRealMatrix(thetaArray);
+        RealMatrix theta = MatrixUtil.getThetaZeros(X);
 
         return new Data(X, y, theta);
     }

@@ -61,7 +61,7 @@ public class UnregularizedLogisticRegression implements LogisticRegression {
     @Override
     public RealMatrix predict(RealMatrix X, RealMatrix theta) {
         RealMatrix H = sigmoid(X.multiply(theta));
-        RealMatrix P = MatrixUtils.createRealMatrix(X.getRowDimension(), 0);
+        RealMatrix P = MatrixUtils.createRealMatrix(X.getRowDimension(), 1);
         for(int i = 0; i < X.getRowDimension(); i++)
             if(H.getEntry(i, 0) >= 0.5)
                 P.setEntry(i, 0, 1.0);

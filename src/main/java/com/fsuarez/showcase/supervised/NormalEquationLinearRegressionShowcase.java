@@ -26,12 +26,7 @@ public class NormalEquationLinearRegressionShowcase implements Showcase {
 
         RealVector y = m.getColumnVector(m.getColumnDimension()-1);
 
-        RealMatrix X = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension());
-        double[] ones = new  double[m.getRowDimension()];
-        Arrays.fill(ones, 1);
-        X.setColumn(0, ones);
-        for(int i = 0; i < m.getColumnDimension()-1; i++)
-            X.setColumnMatrix(i+1, m.getSubMatrix(0, m.getRowDimension()-1, i, i));
+        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(m.getSubMatrix(0, m.getRowDimension()-1, 0, m.getColumnDimension()-2));
 
         NormalEquationLinearRegression learner = new NormalEquationLinearRegression();
         RealMatrix theta = learner.computeTheta(X, y);
