@@ -55,3 +55,5 @@ At first in Java then possibly other languages in the future.
 * Error Analysis
   * Precision/Recall
   * F1 Score
+
+## Reinforcement Learning
