@@ -28,8 +28,8 @@ At first in Java then possibly other languages in the future.
 * Bias term 
 
 ## Recommender Systems
-* Content-based Recommentdations
-* Collaborative Filterin
+* Content-based Recommendations
+* Collaborative Filtering
 
 ## Optimization
 ### Gradient Descent
