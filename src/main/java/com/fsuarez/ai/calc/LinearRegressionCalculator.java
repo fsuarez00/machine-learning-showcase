@@ -1,4 +1,4 @@
-package com.fsuarez.showcase.supervised;
+package com.fsuarez.ai.calc;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -7,7 +7,7 @@ import org.apache.commons.math3.linear.RealVector;
 /**
  * @author fsuarez
  */
-public class UnivariateLinearRegression implements LinearRegression {
+public class LinearRegressionCalculator implements Calculator {
 
     /**
      * J(theta) = 1/2m * sum(h_theta(x(i)) - y(i))^2
@@ -19,11 +19,10 @@ public class UnivariateLinearRegression implements LinearRegression {
      */
     @Override
     public double computeCost(RealMatrix X, RealVector y, RealMatrix theta) {
-
         // number of training examples
         int m = y.getDimension();
 
-        RealMatrix h = predict(X, theta);
+        RealMatrix h = computePrediction(X, theta);
 
         // get squared error and sum
         RealMatrix error = h.subtract(MatrixUtils.createColumnRealMatrix(y.toArray()));
@@ -47,8 +46,16 @@ public class UnivariateLinearRegression implements LinearRegression {
      * @return h
      */
     @Override
-    public RealMatrix predict(RealMatrix X, RealMatrix theta) {
+    public RealMatrix computePrediction(RealMatrix X, RealMatrix theta) {
         return X.multiply(theta);
     }
 
+    @Override
+    public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
+        return null;
+    }
+
+    public RealMatrix computeRegularization() {
+        return null;
+    }
 }

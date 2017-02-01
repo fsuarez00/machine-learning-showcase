@@ -1,11 +1,17 @@
 package com.fsuarez;
 
-import com.fsuarez.showcase.ShowcaseRunner;
+import com.fsuarez.ai.calc.Calculator;
+import com.fsuarez.showcase.gd.BatchGradientDescent;
+import com.fsuarez.showcase.gd.GradientDescent;
+import com.fsuarez.showcase.util.CalculatorFactory;
+import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 
 /**
  * @author fsuarez
@@ -19,10 +25,12 @@ public class Launcher {
         options.addOption("g", true, "Gradient Descent Algorithm to run");
         options.addOption("i", true, "Number of iterations");
         options.addOption("a", true, "Value of alpha");
+        options.addOption("f", true, "File containing the data to be learned");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
+        String fileName = cmd.getOptionValue("f");
         String algorithm = cmd.getOptionValue("algo");
         String gd = cmd.getOptionValue("g");
         String iterString = cmd.getOptionValue("i");
@@ -34,7 +42,21 @@ public class Launcher {
         if(alphaString != null)
             alpha = Double.parseDouble(cmd.getOptionValue("a"));
 
-        ShowcaseRunner.run(algorithm, gd, iterations, alpha);
+        Calculator calculator = CalculatorFactory.getCalculator(algorithm);
+        RealMatrix mData = MatrixUtil.readDataFile(fileName);
+
+        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(mData.getSubMatrix(0, mData.getRowDimension()-1, 0, 0));
+        RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
+        RealMatrix theta = MatrixUtil.getThetaZeros(X);
+
+        GradientDescent gradientDescent = null;
+        switch(gd) {
+            case "batch":
+                gradientDescent = new BatchGradientDescent(X, y, theta, iterations, alpha, calculator);
+        }
+        RealMatrix learnedTheta = gradientDescent.run();
+
+        // TODO get user input and output predicted data
     }
 
 }

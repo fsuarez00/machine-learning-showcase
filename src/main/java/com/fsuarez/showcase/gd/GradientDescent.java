@@ -8,5 +8,7 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public interface GradientDescent {
 
-    Map<String, RealMatrix> run();
+    RealMatrix run();
+
+    RealMatrix descend(RealMatrix theta);
 }

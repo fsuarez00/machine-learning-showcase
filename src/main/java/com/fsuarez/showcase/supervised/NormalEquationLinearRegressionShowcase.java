@@ -1,6 +1,5 @@
 package com.fsuarez.showcase.supervised;
 
-import java.util.Arrays;
 import com.fsuarez.showcase.Data;
 import com.fsuarez.showcase.Learner;
 import com.fsuarez.showcase.Showcase;
