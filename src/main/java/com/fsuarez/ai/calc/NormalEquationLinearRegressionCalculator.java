@@ -1,7 +1,5 @@
-package com.fsuarez.showcase.supervised;
+package com.fsuarez.ai.calc;
 
-import com.fsuarez.showcase.Learner;
-import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -10,7 +8,7 @@ import org.apache.commons.math3.linear.RealVector;
 /**
  * @author fsuarez
  */
-public class NormalEquationLinearRegression implements Learner {
+public class NormalEquationLinearRegressionCalculator implements Calculator {
 
     /**
      * No need to compute cost for minimization.
@@ -33,21 +31,20 @@ public class NormalEquationLinearRegression implements Learner {
      * @return h
      */
     @Override
-    public RealMatrix predict(RealMatrix X, RealMatrix theta) {
-        return X.multiply(theta);
+    public RealMatrix computePrediction(RealMatrix X, RealMatrix theta) {
+        return null;
     }
 
-    /**
-     * Theta = (X^T * X)^-1 * X^T * y
-     *
-     * @param X
-     * @param y
-     * @return theta
-     */
-    public RealMatrix computeTheta(RealMatrix X, RealVector y) {
+    @Override
+    public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
         RealMatrix transX = X.transpose();
         RealMatrix inverse = new LUDecomposition(transX.multiply(X)).getSolver().getInverse();
 
         return inverse.multiply(transX).multiply(MatrixUtils.createColumnRealMatrix(y.toArray()));
+    }
+
+    @Override
+    public double computeRegularization(RealMatrix theta, double lambda, int m) {
+        return null;
     }
 }

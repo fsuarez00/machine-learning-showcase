@@ -50,12 +50,28 @@ public class LinearRegressionCalculator implements Calculator {
         return X.multiply(theta);
     }
 
+    /**
+     *  Derivative of J(theta) w.r.t. theta_j:
+     *  1/m * sum(h_theta(x(i)) - y(i)) * x_j(i))
+     *
+     *  Vectorized:
+     *  X^T * (h - y) / m
+     *
+     * @param X
+     * @param H
+     * @param y
+     * @return gradient of the cost w.r.t. the parameters
+     */
     @Override
     public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
-        return null;
+        // number of training examples
+        int m = y.getDimension();
+
+        RealMatrix yMatrix = MatrixUtils.createColumnRealMatrix(y.toArray());
+        return X.transpose().multiply(H.subtract(yMatrix)).scalarMultiply(1.0 / m);
     }
 
-    public RealMatrix computeRegularization() {
+    public double computeRegularization(RealMatrix theta, double lambda, int m) {
         return null;
     }
 }

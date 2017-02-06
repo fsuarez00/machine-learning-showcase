@@ -45,16 +45,22 @@ public class Launcher {
         Calculator calculator = CalculatorFactory.getCalculator(algorithm);
         RealMatrix mData = MatrixUtil.readDataFile(fileName);
 
-        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(mData.getSubMatrix(0, mData.getRowDimension()-1, 0, 0));
+        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(
+                mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2));
         RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
         RealMatrix theta = MatrixUtil.getThetaZeros(X);
 
-        GradientDescent gradientDescent = null;
-        switch(gd) {
-            case "batch":
-                gradientDescent = new BatchGradientDescent(X, y, theta, iterations, alpha, calculator);
+        RealMatrix learnedTheta;
+        if(algorithm.equals(CalculatorFactory.LINEAR_REGRESSION_NORMAL_EQ)) {
+            learnedTheta = calculator.computeGradient(X, null, y);
+        } else {
+            GradientDescent gradientDescent = null;
+            switch (gd) {
+                case "batch":
+                    gradientDescent = new BatchGradientDescent(X, y, theta, iterations, alpha, calculator);
+            }
+            learnedTheta = gradientDescent.run();
         }
-        RealMatrix learnedTheta = gradientDescent.run();
 
         // TODO get user input and output predicted data
     }

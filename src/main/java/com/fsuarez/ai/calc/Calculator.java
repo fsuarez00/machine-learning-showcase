@@ -14,6 +14,6 @@ public interface Calculator {
 
     RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y);
 
-    RealMatrix computeRegularization();
+    double computeRegularization(RealMatrix theta, double lambda, int m);
 
 }
