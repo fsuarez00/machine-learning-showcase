@@ -20,8 +20,6 @@ public class CalculatorFactory {
         switch(algorithm) {
             case LINEAR_REGRESSION:
                 return new LinearRegressionCalculator();
-            case LINEAR_REGRESSION_NORMAL_EQ:
-                return new NormalEquationLinearRegressionCalculator();
             case LOGISTIC_REGRESSION:
                 return new LogisticRegressionCalculator();
             default:

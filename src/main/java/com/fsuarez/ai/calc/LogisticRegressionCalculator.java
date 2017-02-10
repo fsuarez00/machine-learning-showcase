@@ -28,9 +28,7 @@ public class LogisticRegressionCalculator implements Calculator {
 
         RealMatrix H = sigmoid(X.multiply(theta));
 
-        RealMatrix negYMatrix = MatrixUtils.createRealMatrix(y.getDimension(), 1);
-        for(int i = 0; i < negYMatrix.getRowDimension(); i++)
-            negYMatrix.setEntry(i, 0, -y.getEntry(i));
+        RealMatrix negYMatrix = MatrixUtils.createColumnRealMatrix(y.toArray()).scalarMultiply(-1.0);
 
         // (1 - y)^T
         RealMatrix oneMinusYTranspose = negYMatrix.scalarAdd(1.0).transpose();
@@ -43,9 +41,12 @@ public class LogisticRegressionCalculator implements Calculator {
         // calculate log(1 - h)
         RealMatrix logOneMinusH = MatrixUtils.createRealMatrix(H.getRowDimension(), H.getColumnDimension());
         for(int i = 0; i < H.getRowDimension(); i++)
-            logOneMinusH.setEntry(i, 0, 1.0 - H.getEntry(i, 0));
+            logOneMinusH.setEntry(i, 0, FastMath.log(1.0 - H.getEntry(i, 0)));
 
-        RealMatrix J = negYMatrix.transpose().multiply(logH).subtract(oneMinusYTranspose.multiply(logOneMinusH)).scalarMultiply(1.0/m);
+        RealMatrix sumPos = negYMatrix.transpose().multiply(logH);
+        RealMatrix sumNeg = oneMinusYTranspose.multiply(logOneMinusH);
+
+        RealMatrix J = sumPos.subtract(sumNeg).scalarMultiply(1.0/m);
 
         return J.getEntry(0, 0);
     }
@@ -61,14 +62,14 @@ public class LogisticRegressionCalculator implements Calculator {
     @Override
     public RealMatrix computePrediction(RealMatrix X, RealMatrix theta) {
         RealMatrix H = sigmoid(X.multiply(theta));
-        RealMatrix P = MatrixUtils.createRealMatrix(X.getRowDimension(), 1);
-        for(int i = 0; i < X.getRowDimension(); i++)
-            if(H.getEntry(i, 0) >= 0.5)
-                P.setEntry(i, 0, 1.0);
-            else
-                P.setEntry(i, 0, 0.0);
+//        RealMatrix P = MatrixUtils.createRealMatrix(X.getRowDimension(), 1);
+//        for(int i = 0; i < X.getRowDimension(); i++)
+//            if(H.getEntry(i, 0) >= 0.5)
+//                P.setEntry(i, 0, 1.0);
+//            else
+//                P.setEntry(i, 0, 0.0);
 
-        return P;
+        return H;
     }
 
     /**
@@ -84,7 +85,7 @@ public class LogisticRegressionCalculator implements Calculator {
      * @return gradient of the cost w.r.t. the parameters
      */
     @Override
-    public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
+    public RealMatrix computeCostDerivative(RealMatrix X, RealMatrix H, RealVector y) {
         // number of training examples
         int m = y.getDimension();
 

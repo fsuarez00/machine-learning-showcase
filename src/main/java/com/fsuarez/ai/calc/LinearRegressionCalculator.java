@@ -63,7 +63,7 @@ public class LinearRegressionCalculator implements Calculator {
      * @return gradient of the cost w.r.t. the parameters
      */
     @Override
-    public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
+    public RealMatrix computeCostDerivative(RealMatrix X, RealMatrix H, RealVector y) {
         // number of training examples
         int m = y.getDimension();
 
@@ -72,6 +72,6 @@ public class LinearRegressionCalculator implements Calculator {
     }
 
     public double computeRegularization(RealMatrix theta, double lambda, int m) {
-        return null;
+        return 0.0;
     }
 }

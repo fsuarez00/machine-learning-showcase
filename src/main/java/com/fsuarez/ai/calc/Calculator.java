@@ -12,7 +12,7 @@ public interface Calculator {
 
     RealMatrix computePrediction(RealMatrix X, RealMatrix theta);
 
-    RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y);
+    RealMatrix computeCostDerivative(RealMatrix X, RealMatrix H, RealVector y);
 
     double computeRegularization(RealMatrix theta, double lambda, int m);
 

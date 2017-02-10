@@ -1,6 +1,7 @@
 package com.fsuarez;
 
 import com.fsuarez.ai.calc.Calculator;
+import com.fsuarez.ai.calc.NormalEquationLinearRegressionCalculator;
 import com.fsuarez.showcase.gd.BatchGradientDescent;
 import com.fsuarez.showcase.gd.GradientDescent;
 import com.fsuarez.showcase.util.CalculatorFactory;
@@ -52,7 +53,7 @@ public class Launcher {
 
         RealMatrix learnedTheta;
         if(algorithm.equals(CalculatorFactory.LINEAR_REGRESSION_NORMAL_EQ)) {
-            learnedTheta = calculator.computeGradient(X, null, y);
+            learnedTheta = NormalEquationLinearRegressionCalculator.computeTheta(X, y);
         } else {
             GradientDescent gradientDescent = null;
             switch (gd) {
@@ -62,7 +63,8 @@ public class Launcher {
             learnedTheta = gradientDescent.run();
         }
 
-        // TODO get user input and output predicted data
+        // TODO get user input and output predicted data:q
+
     }
 
 }

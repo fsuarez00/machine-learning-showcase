@@ -8,20 +8,9 @@ import org.apache.commons.math3.linear.RealVector;
 /**
  * @author fsuarez
  */
-public class NormalEquationLinearRegressionCalculator implements Calculator {
+public class NormalEquationLinearRegressionCalculator {
 
-    /**
-     * No need to compute cost for minimization.
-     *
-     * @param X
-     * @param y
-     * @param theta
-     * @return
-     */
-    @Override
-    public double computeCost(RealMatrix X, RealVector y, RealMatrix theta) {
-        return 0;
-    }
+    private NormalEquationLinearRegressionCalculator(){}
 
     /**
      * h_theta(x) = theta^T * X = theta(0) + theta(1)*X(1)
@@ -30,21 +19,21 @@ public class NormalEquationLinearRegressionCalculator implements Calculator {
      * @param theta
      * @return h
      */
-    @Override
-    public RealMatrix computePrediction(RealMatrix X, RealMatrix theta) {
-        return null;
+    public static RealMatrix computePrediction(RealMatrix X, RealMatrix theta) {
+        return X.multiply(theta);
     }
 
-    @Override
-    public RealMatrix computeGradient(RealMatrix X, RealMatrix H, RealVector y) {
+    /**
+     * Theta = (X^T * X)^-1 * X^T * y
+     *
+     * @param X
+     * @param y
+     * @return theta
+     */
+    public static RealMatrix computeTheta(RealMatrix X, RealVector y) {
         RealMatrix transX = X.transpose();
         RealMatrix inverse = new LUDecomposition(transX.multiply(X)).getSolver().getInverse();
 
         return inverse.multiply(transX).multiply(MatrixUtils.createColumnRealMatrix(y.toArray()));
-    }
-
-    @Override
-    public double computeRegularization(RealMatrix theta, double lambda, int m) {
-        return null;
     }
 }
