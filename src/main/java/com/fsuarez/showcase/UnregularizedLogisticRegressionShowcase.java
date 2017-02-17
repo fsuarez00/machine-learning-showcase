@@ -10,6 +10,7 @@ import com.fsuarez.showcase.gd.BatchGradientDescent;
 import com.fsuarez.showcase.gd.GradientDescent;
 import com.fsuarez.showcase.util.MatrixUtil;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.jfree.chart.ChartFactory;
@@ -87,24 +88,26 @@ public class UnregularizedLogisticRegressionShowcase {
 
         // run gradient descent
         LogisticRegressionCalculator logisticRegressionCalculator = new LogisticRegressionCalculator();
-        LOGGER.info("{}", logisticRegressionCalculator.computeCost(xMatrix, yVector, theta));
+        LOGGER.info("Cost before training: {}", logisticRegressionCalculator.computeCost(xMatrix, yVector, theta));
         GradientDescent gradientDescent = new BatchGradientDescent(xMatrix, yVector, theta, 20, 0.001, logisticRegressionCalculator);
         RealMatrix learnedTheta = gradientDescent.run();
 
-        // plot decision boundary
-        //only need 2 points so get the lowest and highest x
+        LOGGER.info("Cost after training: {}", logisticRegressionCalculator.computeCost(xMatrix, yVector, learnedTheta));
 
+        RealMatrix inputX = MatrixUtil.appendBiasTermColumnWithOnes(MatrixUtils.createRowRealMatrix(new double[]{45.0, 85.0}));
+        LOGGER.info("Prediction for {}: {}", MatrixUtil.toString(inputX), logisticRegressionCalculator.computePrediction(inputX, learnedTheta).getEntry(0, 0));
+        // plot decision boundary -- broken at the moment
+        // plotDecisionBoundary(rawX, learnedTheta, plot);
+    }
+
+    private static void plotDecisionBoundary(RealMatrix rawX, RealMatrix learnedTheta, XYPlot plot) {
+        //only need 2 points so get the lowest and highest x
         List<Double> xColumnList = Arrays.asList(ArrayUtils.toObject(rawX.getColumnVector(0).toArray()));
         int minIndex = xColumnList.indexOf(Collections.min(xColumnList));
         int maxIndex = xColumnList.indexOf(Collections.max(xColumnList));
         double minX = xColumnList.get(minIndex)-2.0;
         double maxX = xColumnList.get(maxIndex)+2.0;
         // get y
-        //plot_y = (-1./theta(3)).*(theta(2).*plot_x + theta(1));
-        double yMin = (-1.0 / learnedTheta.getEntry(2, 0)) * (learnedTheta.getEntry(1, 0) * minX
-                + learnedTheta.getEntry(0, 0));
-        double yMax = (-1.0 / learnedTheta.getEntry(2, 0)) * (learnedTheta.getEntry(1, 0) * maxX
-                + learnedTheta.getEntry(0, 0));
         double yIntercept = -learnedTheta.getEntry(0, 0) / learnedTheta.getEntry(2, 0);
         double slope = -learnedTheta.getEntry(1, 0) / learnedTheta.getEntry(2, 0);
         double y1 = slope * minX + yIntercept;
