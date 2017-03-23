@@ -95,7 +95,14 @@ public class UnregularizedLogisticRegressionShowcase {
         LOGGER.info("Cost after training: {}", logisticRegressionCalculator.computeCost(xMatrix, yVector, learnedTheta));
 
         RealMatrix inputX = MatrixUtil.appendBiasTermColumnWithOnes(MatrixUtils.createRowRealMatrix(new double[]{45.0, 85.0}));
-        LOGGER.info("Prediction for {}: {}", MatrixUtil.toString(inputX), logisticRegressionCalculator.computePrediction(inputX, learnedTheta).getEntry(0, 0));
+        RealMatrix predictionMatrix = logisticRegressionCalculator.computePrediction(inputX, learnedTheta);
+        RealMatrix P = MatrixUtils.createRealMatrix(inputX.getRowDimension(), 1);
+        for(int i = 0; i < inputX.getRowDimension(); i++)
+            if(predictionMatrix.getEntry(i, 0) >= 0.5)
+                P.setEntry(i, 0, 1.0);
+            else
+                P.setEntry(i, 0, 0.0);
+        LOGGER.info("Prediction for {}: {}", MatrixUtil.toString(inputX), P.getEntry(0, 0));
         // plot decision boundary -- broken at the moment
         // plotDecisionBoundary(rawX, learnedTheta, plot);
     }
