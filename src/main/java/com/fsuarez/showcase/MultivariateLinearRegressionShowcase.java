@@ -68,7 +68,7 @@ public class MultivariateLinearRegressionShowcase {
         RealMatrix xNorm = MatrixUtils.createRealMatrix(temp);
         RealMatrix xMatrix = MatrixUtil.appendBiasTermColumnWithOnes(xNorm);
         RealVector yVector = mData.getColumnVector(mData.getColumnDimension()-1);
-        RealMatrix theta = MatrixUtil.getThetaZeros(xMatrix);
+        RealMatrix theta = MatrixUtil.getThetaZeros(xMatrix.getColumnDimension());
 
         // manually run gradient descent to capture cost per iteration
         int iterations = 1500;

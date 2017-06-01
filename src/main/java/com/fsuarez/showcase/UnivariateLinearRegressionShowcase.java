@@ -66,7 +66,7 @@ public class UnivariateLinearRegressionShowcase {
         RealMatrix rawX = mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2);
         RealMatrix xMatrix = MatrixUtil.appendBiasTermColumnWithOnes(rawX);
         RealVector yVector = mData.getColumnVector(mData.getColumnDimension()-1);
-        RealMatrix theta = MatrixUtil.getThetaZeros(xMatrix);
+        RealMatrix theta = MatrixUtil.getThetaZeros(xMatrix.getColumnDimension());
 
         // run gradient descent
         LinearRegressionCalculator linearRegressionCalculator = new LinearRegressionCalculator();

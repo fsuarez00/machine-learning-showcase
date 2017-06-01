@@ -46,8 +46,8 @@ public class MatrixUtil {
         return newM;
     }
 
-    public static RealMatrix getThetaZeros(RealMatrix m) {
-        double[] thetaArray = new double[m.getColumnDimension()];
+    public static RealMatrix getThetaZeros(int dimensions) {
+        double[] thetaArray = new double[dimensions];
         Arrays.fill(thetaArray, 0.0);
         RealMatrix theta = MatrixUtils.createColumnRealMatrix(thetaArray);
 

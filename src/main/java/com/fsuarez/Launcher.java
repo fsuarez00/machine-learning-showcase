@@ -49,7 +49,7 @@ public class Launcher {
         RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(
                 mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2));
         RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
-        RealMatrix theta = MatrixUtil.getThetaZeros(X);
+        RealMatrix theta = MatrixUtil.getThetaZeros(X.getColumnDimension());
 
         RealMatrix learnedTheta;
         if(algorithm.equals(CalculatorFactory.LINEAR_REGRESSION_NORMAL_EQ)) {
