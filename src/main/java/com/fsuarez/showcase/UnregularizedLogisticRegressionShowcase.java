@@ -37,7 +37,7 @@ public class UnregularizedLogisticRegressionShowcase {
 
     public static void main(String... args) {
         // initialize parameters
-        RealMatrix mData = MatrixUtil.readDataFile("logrdata1.txt");
+        RealMatrix mData = MatrixUtil.readDataFile("src/test/resources/logrdata1.txt");
         RealMatrix rawX = mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2);
         RealMatrix xMatrix = MatrixUtil.appendBiasTermColumnWithOnes(rawX);
         RealVector yVector = mData.getColumnVector(mData.getColumnDimension()-1);

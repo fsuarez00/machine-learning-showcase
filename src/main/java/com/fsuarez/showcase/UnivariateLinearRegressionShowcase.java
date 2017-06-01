@@ -27,7 +27,7 @@ import org.jfree.util.ShapeUtilities;
 public class UnivariateLinearRegressionShowcase {
 
     public static void main(String... args) {
-        RealMatrix mData = MatrixUtil.readDataFile("lrdata1.txt");
+        RealMatrix mData = MatrixUtil.readDataFile("src/test/resources/lrdata1.txt");
 
         // generate chart
         ApplicationFrame applicationFrame = new ApplicationFrame("Population vs Profit");

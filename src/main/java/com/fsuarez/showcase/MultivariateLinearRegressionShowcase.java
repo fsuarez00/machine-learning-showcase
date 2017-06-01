@@ -31,7 +31,7 @@ public class MultivariateLinearRegressionShowcase {
 
     public static void main(String... args) {
         // initialize parameters
-        RealMatrix mData = MatrixUtil.readDataFile("lrdata2.txt");
+        RealMatrix mData = MatrixUtil.readDataFile("src/test/resources/lrdata2.txt");
 
         RealMatrix rawX = mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2);
 
