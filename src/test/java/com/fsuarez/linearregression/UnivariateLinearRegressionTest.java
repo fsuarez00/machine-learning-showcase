@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class UnivariateLinearRegressionTest {
 
     @Test
-    public void gradientDescentPrediction() {
+    public void gradientDescentRegressionTest() {
         LinearRegressionCalculator linearRegressionCalculator = new LinearRegressionCalculator();
 
         RealMatrix mData = MatrixUtil.readDataFile("lrdata1.txt");

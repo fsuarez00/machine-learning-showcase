@@ -288,14 +288,14 @@ public class MatrixTests {
     public static void logisticRegressionTests(){
         double[][] data = null;
         try {
-            data = Readfile.getFileArray("src/test/resources/logrdata1.txt");
+            data = Readfile.getFileArray("logrdata1.txt");
         } catch (IOException e) {System.out.println(e);}
         //Passed
         LogisticRegression lr = new LogisticRegression(new DenseMatrix(GenFunc.splitDouble(data, 0, -1, 0, 1)), new DenseMatrix(GenFunc.splitDouble(data, 0, -1, 2, 2))); 
         //Passed
         lr.addBias();
         //Passed    
-        lr.setLambda(1);
+        lr.setLambda(0);
         //Passed
         System.out.println(lr.costFunction());
         //Passed
