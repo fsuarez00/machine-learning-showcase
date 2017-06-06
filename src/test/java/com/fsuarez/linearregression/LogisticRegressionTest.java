@@ -53,6 +53,18 @@ public class LogisticRegressionTest {
 
         int iterations = 400;
 
-        Fmincg.fMinUnc(new LogisticRegressionCalculator(), X, y, theta, 0.0, iterations);
+        LogisticRegressionCalculator logisticRegressionCalculator = new LogisticRegressionCalculator();
+        Fmincg.FmincgReturn result = Fmincg.fMinUnc(logisticRegressionCalculator, X, y, theta, 0.0, iterations);
+
+        RealMatrix input = MatrixUtils.createRowRealMatrix(new double[]{1.0, 45.0, 85.0});
+        RealMatrix p = logisticRegressionCalculator.computePrediction(input, result.getTheta());
+        RealMatrix prediction = MatrixUtils.createRealMatrix(p.getRowDimension(), 1);
+        for(int i = 0; i < p.getRowDimension(); i++)
+            if(p.getEntry(i, 0) >= 0.5)
+                prediction.setEntry(i, 0, 1.0);
+            else
+                prediction.setEntry(i, 0, 0.0);
+
+        Assert.assertEquals(1.0, prediction.getData()[0][0], 0.1);
     }
 }
