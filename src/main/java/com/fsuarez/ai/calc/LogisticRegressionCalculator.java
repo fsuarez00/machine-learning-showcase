@@ -102,12 +102,25 @@ public class LogisticRegressionCalculator implements Calculator {
      * @return regularization component of regularized equation
      */
     @Override
-    public double computeRegularization(RealMatrix theta, double lambda, int m) {
+    public double computeCostRegularization(RealMatrix theta, double lambda, int m) {
         double sum = 0.0;
         for(int i = 1; i < theta.getRowDimension(); i++)
             sum += FastMath.pow(theta.getEntry(i, 0), 2);
 
         return (lambda / (double)(2*m)) * sum;
+    }
+
+    /**
+     * (lambda/m) * theta
+     *
+     * @param theta
+     * @param lamda
+     * @param m
+     * @return regularized component of cost derivative
+     */
+    @Override
+    public RealMatrix computeCostDerivativeRegularization(RealMatrix theta, double lamda, int m) {
+        return theta.scalarMultiply(lamda / m);
     }
 
     private RealMatrix sigmoid(RealMatrix Z) {

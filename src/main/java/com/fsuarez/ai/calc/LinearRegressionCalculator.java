@@ -71,7 +71,13 @@ public class LinearRegressionCalculator implements Calculator {
         return X.transpose().multiply(H.subtract(yMatrix)).scalarMultiply(1.0 / m);
     }
 
-    public double computeRegularization(RealMatrix theta, double lambda, int m) {
+    @Override
+    public RealMatrix computeCostDerivativeRegularization(RealMatrix theta, double lamda, int m) {
+        return null;
+    }
+
+    @Override
+    public double computeCostRegularization(RealMatrix theta, double lambda, int m) {
         return 0.0;
     }
 }

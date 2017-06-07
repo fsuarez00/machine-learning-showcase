@@ -14,6 +14,8 @@ public interface Calculator {
 
     RealMatrix computeCostDerivative(RealMatrix X, RealMatrix H, RealVector y);
 
-    double computeRegularization(RealMatrix theta, double lambda, int m);
+    RealMatrix computeCostDerivativeRegularization(RealMatrix theta, double lamda, int m);
+
+    double computeCostRegularization(RealMatrix theta, double lambda, int m);
 
 }
