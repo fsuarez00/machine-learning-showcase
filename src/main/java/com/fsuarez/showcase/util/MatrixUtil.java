@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 
 /**
  * @author fsuarez
@@ -35,7 +36,7 @@ public class MatrixUtil {
     }
 
     public static RealMatrix appendBiasTermColumnWithOnes(RealMatrix m) {
-        double[] ones = new  double[m.getRowDimension()];
+        double[] ones = new double[m.getRowDimension()];
         Arrays.fill(ones, 1.0);
 
         RealMatrix newM = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension() + 1);
@@ -43,6 +44,16 @@ public class MatrixUtil {
         for(int i = 0; i < m.getColumnDimension(); i++)
             newM.setColumnMatrix(i+1, m.getSubMatrix(0, m.getRowDimension()-1, i, i));
 
+        return newM;
+    }
+
+    public static RealMatrix appendColumn(RealMatrix m, RealVector c) {
+        RealMatrix newM = MatrixUtils.createRealMatrix(m.getRowDimension(), m.getColumnDimension() + 1);
+
+        for(int i = 0; i < m.getColumnDimension(); i++)
+            newM.setColumnMatrix(i, m.getSubMatrix(0, m.getRowDimension()-1, i, i));
+
+        newM.setColumn(m.getColumnDimension(), c.toArray());
         return newM;
     }
 

@@ -67,4 +67,24 @@ public class LogisticRegressionTest {
 
         Assert.assertEquals(1.0, prediction.getData()[0][0], 0.1);
     }
+
+    @Test
+    public void gradientDescentRegressionWithRegularizationTest() {
+        RealMatrix mData = MatrixUtil.readDataFile("logrdata2.txt");
+        RealVector x1 = MatrixUtils.createRealVector(mData.getColumn(0));
+        RealVector x2 = MatrixUtils.createRealVector(mData.getColumn(1));
+
+        // create a new a 28 dimensional matrix of which 26 are generated features
+        RealMatrix featureMappedX = MatrixUtils.createRealMatrix(mData.getRowDimension(), 28);
+        for(int i = 1; i < 7; i++) {
+            for(int j = 0; j < i; j++) {
+                MatrixUtil.appendColumn()
+            }
+        }
+
+        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(
+                mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2));
+        RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
+        RealMatrix theta = MatrixUtil.getThetaZeros(X.getColumnDimension());
+    }
 }
