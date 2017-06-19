@@ -69,22 +69,27 @@ public class LogisticRegressionTest {
     }
 
     @Test
-    public void gradientDescentRegressionWithRegularizationTest() {
+    public void gradientDescentRegressionWithRegularizationAndFeatureMappingTest() {
         RealMatrix mData = MatrixUtil.readDataFile("logrdata2.txt");
         RealVector x1 = MatrixUtils.createRealVector(mData.getColumn(0));
         RealVector x2 = MatrixUtils.createRealVector(mData.getColumn(1));
 
         // create a new a 28 dimensional matrix of which 26 are generated features
-        RealMatrix featureMappedX = MatrixUtils.createRealMatrix(mData.getRowDimension(), 28);
+        RealMatrix featureMappedX = mData.getSubMatrix(0, mData.getRowDimension() - 1, 0, 1);
         for(int i = 1; i < 7; i++) {
             for(int j = 0; j < i; j++) {
-                MatrixUtil.appendColumn()
+                double[] vector = new double[featureMappedX.getRowDimension()];
+                for(int z = 0; z < mData.getRowDimension(); z++)
+                    vector[z] = Math.pow(x1.getEntry(z), i - j) * Math.pow(x2.getEntry(z), j);
+                featureMappedX = MatrixUtil.appendColumn(featureMappedX, MatrixUtils.createRealVector(vector));
             }
         }
 
-        RealMatrix X = MatrixUtil.appendBiasTermColumnWithOnes(
-                mData.getSubMatrix(0, mData.getRowDimension()-1, 0, mData.getColumnDimension()-2));
         RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
-        RealMatrix theta = MatrixUtil.getThetaZeros(X.getColumnDimension());
+        RealMatrix theta = MatrixUtil.getThetaZeros(featureMappedX.getColumnDimension());
+//        LogisticRegressionCalculator logisticRegressionCalculator = new LogisticRegressionCalculator();
+//        logisticRegressionCalculator.computeCostRegularization();
+        int iterations = 400;
+//        Fmincg.FmincgReturn result = Fmincg.fMinUnc(logisticRegressionCalculator, featureMappedX, y, theta, 0.0, iterations);
     }
 }
