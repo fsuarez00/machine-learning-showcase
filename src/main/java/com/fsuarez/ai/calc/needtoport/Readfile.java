@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Readfile {
     
-    private static final String resourcePath = new File("").getAbsolutePath().concat("/src/main/resources/");
+    private static final String resourcePath = new File("").getAbsolutePath().concat("/src/test/resources/");
 
     public Readfile(){}
     

@@ -87,9 +87,10 @@ public class LogisticRegressionTest {
 
         RealVector y = mData.getColumnVector(mData.getColumnDimension()-1);
         RealMatrix theta = MatrixUtil.getThetaZeros(featureMappedX.getColumnDimension());
-//        LogisticRegressionCalculator logisticRegressionCalculator = new LogisticRegressionCalculator();
-//        logisticRegressionCalculator.computeCostRegularization();
+
         int iterations = 400;
-//        Fmincg.FmincgReturn result = Fmincg.fMinUnc(logisticRegressionCalculator, featureMappedX, y, theta, 0.0, iterations);
+
+        LogisticRegressionCalculator logisticRegressionCalculator = new LogisticRegressionCalculator();
+        Fmincg.FmincgReturn result = Fmincg.fMinUnc(logisticRegressionCalculator, featureMappedX, y, theta, 1.0, iterations);
     }
 }

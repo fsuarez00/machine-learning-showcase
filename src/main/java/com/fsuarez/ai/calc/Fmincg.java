@@ -17,6 +17,7 @@ public class Fmincg {
 
     public static FmincgReturn fMinUnc(Calculator calculator, RealMatrix X, RealVector y, RealMatrix theta, double lambda, int iterations) {
         int length = iterations;
+        int m = X.getRowDimension();
 
         RealMatrix fTheta = null;
 
@@ -32,8 +33,8 @@ public class Fmincg {
 
         int i = 0;  //zero the run length counter
         boolean lsFailed = false;   //no previous line search has failed
-        double f1 = calculator.computeCost(X, y, theta);    //get function value and gradient
-        RealMatrix df1 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y);
+        double f1 = calculator.computeCost(X, y, theta) + calculator.computeCostRegularization(theta, lambda, m);    //get function value and gradient
+        RealMatrix df1 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y).add(calculator.computeCostDerivativeRegularization(theta, lambda,m));
         RealMatrix s = df1.scalarMultiply(-1.0); //search direction is steepest
         double d1 = s.transpose().multiply(s).scalarMultiply(-1.0).getData()[0][0];
         double z1 = red/(1.0-d1); //initial step is red/(|s|+1)
@@ -48,8 +49,8 @@ public class Fmincg {
             // begin line search
             theta = theta.add(s.scalarMultiply(z1));
 
-            double f2 = calculator.computeCost(X, y, theta);
-            RealMatrix df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y);
+            double f2 = calculator.computeCost(X, y, theta) + calculator.computeCostRegularization(theta, lambda, m);
+            RealMatrix df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y).add(calculator.computeCostDerivativeRegularization(theta, lambda,m));
             double d2 = df2.transpose().multiply(s).getData()[0][0];
             //initialize point 3 equal to point 1
             double f3 = f1;
@@ -75,8 +76,8 @@ public class Fmincg {
                     z2 = Math.max(Math.min(z2, INT * z3), (1 - INT) * z3); // don't accept too close to limits
                     z1 = z1 + z2;   // update the step
                     theta = theta.add(s.scalarMultiply(z2));
-                    f2 = calculator.computeCost(X, y, theta);
-                    df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y);
+                    f2 = calculator.computeCost(X, y, theta) + calculator.computeCostRegularization(theta, lambda, m);
+                    df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y).add(calculator.computeCostDerivativeRegularization(theta, lambda,m));
 
                     d2 = df2.transpose().multiply(s).getData()[0][0];
                     z3 = z3 - z2; // z3 is now relative to the location of z2
@@ -117,8 +118,8 @@ public class Fmincg {
 
                 // update current estimates
                 theta = theta.add(s.scalarMultiply(z2));
-                f2 = calculator.computeCost(X, y, theta);
-                df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y);
+                f2 = calculator.computeCost(X, y, theta) + calculator.computeCostRegularization(theta, lambda, m);
+                df2 = calculator.computeCostDerivative(X, calculator.computePrediction(X, theta), y).add(calculator.computeCostDerivativeRegularization(theta, lambda,m));
                 d2 = df2.transpose().multiply(s).getData()[0][0];
 
                 M--;
@@ -132,10 +133,10 @@ public class Fmincg {
                 else {
                     double[][] data = fTheta.getData();
                     double[][] newData = new double[data.length][data[0].length + 1];
-                    for(int m=0; m < data.length; m++) {
+                    for(int o=0; o < data.length; o++) {
                         for(int n = 0; n < data[0].length; n++)
-                            newData[m][n] = data[m][n];
-                        newData[m][data.length] = f1;
+                            newData[o][n] = data[o][n];
+                        newData[o][data.length] = f1;
                     }
                     fTheta = MatrixUtils.createRealMatrix(newData);
                 }
