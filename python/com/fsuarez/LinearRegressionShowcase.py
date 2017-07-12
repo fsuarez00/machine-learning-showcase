@@ -1,10 +1,7 @@
-
-
-def getfromtxt(filename):
-    with open()
+import numpy
 
 def run():
-    points = getfromtxt("")
+    points = numpy.loadtxt("lrdata1.txt")
 
 
 
