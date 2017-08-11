@@ -1,9 +1,7 @@
 import numpy
 
-
 def run():
-    points = numpy.loadtxt("lrdata1.txt", delimiter=",")
-    return points
+    points = numpy.loadtxt("lrdata1.txt")
 
 
 
