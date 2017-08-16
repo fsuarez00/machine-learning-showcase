@@ -1,4 +1,5 @@
 import numpy as np
+import util
 
 
 def run():
@@ -7,24 +8,17 @@ def run():
     # m = number of samples
     # n = number of features
     m, n = points.shape
+    n -= 1
 
-    rawX = points[:, 0:n-1]
+    rawX = points[:, 0:n]
 
-    xNorm = feature_normalize(rawX)
+    xNorm = util.feature_normalize(rawX)
 
-    x = append_bias_term(xNorm)
+    x = util.append_bias_term(xNorm)
+    y = points[:, n]
+    theta = np.zeros((1, x.shape[1]))
+
     print(x)
-
-
-def feature_normalize(x):
-    mu = np.mean(x, axis=0)
-    sigma = np.std(x, axis=0)
-
-    return (x - mu) / sigma
-
-
-def append_bias_term(x):
-    return np.insert(x, 0, [1], axis=1)
 
 
 if __name__ == "__main__":

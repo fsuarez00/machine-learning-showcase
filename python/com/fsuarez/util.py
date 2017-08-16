@@ -1,6 +1,7 @@
 import numpy as np
 
-def mapFeatures(x1, x2):
+
+def map_features(x1, x2):
     degree = 6
     out = None
     for i in range(1, degree+1):
@@ -13,3 +14,14 @@ def mapFeatures(x1, x2):
                 out = np.append(out, x_1 * x_2, axis=1)
 
     return out
+
+
+def append_bias_term(x):
+    return np.insert(x, 0, [1], axis=1)
+
+
+def feature_normalize(x):
+    mu = np.mean(x, axis=0)
+    sigma = np.std(x, axis=0)
+
+    return (x - mu) / sigma
