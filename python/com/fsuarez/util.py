@@ -20,8 +20,8 @@ def append_bias_term(x):
     return np.insert(x, 0, [1], axis=1)
 
 
-def feature_normalize(x):
-    mu = np.mean(x, axis=0)
-    sigma = np.std(x, axis=0)
+def feature_normalize(source, x):
+    mu = np.mean(source, axis=0)
+    sigma = np.std(source, axis=0)
 
     return (x - mu) / sigma
