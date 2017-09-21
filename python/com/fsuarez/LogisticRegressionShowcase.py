@@ -15,7 +15,6 @@ def one_vs_all():
     x = data['X']
     y = data['y']
 
-    input_layer_size = 400
     num_labels = 10
 
     m, n = x.shape
